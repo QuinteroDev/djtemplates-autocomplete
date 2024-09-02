@@ -1,0 +1,80 @@
+{
+    "Django Block": {
+        "prefix": "djblock",
+        "body": [
+            "{% block ${1:block_name} %}",
+            "    ${2}",
+            "{% endblock %}"
+        ],
+        "description": "Create a Django block"
+    },
+    "Django If Statement": {
+        "prefix": "djif",
+        "body": [
+            "{% if ${1:condition} %}",
+            "    ${2}",
+            "{% endif %}"
+        ],
+        "description": "Django if statement"
+    },
+    "Django For Loop": {
+        "prefix": "djfor",
+        "body": [
+            "{% for ${1:item} in ${2:list} %}",
+            "    ${3}",
+            "{% endfor %}"
+        ],
+        "description": "Django for loop"
+    },
+    "Django URL Tag": {
+        "prefix": "djurl",
+        "body": [
+            "{% url '${1:view_name}' ${2:args} %}"
+        ],
+        "description": "Django URL tag"
+    },
+    "Django Static Tag": {
+        "prefix": "djstatic",
+        "body": [
+            "{% static '${1:path}' %}"
+        ],
+        "description": "Django Static tag"
+    },
+    "Django Include": {
+        "prefix": "djinclude",
+        "body": [
+            "{% include '${1:template_name}' %}"
+        ],
+        "description": "Django Include tag"
+    },
+    "Django Load Static": {
+        "prefix": "djloadstatic",
+        "body": [
+            "{% load static %}"
+        ],
+        "description": "Django load static files"
+    },
+    "Django Extends": {
+        "prefix": "djextends",
+        "body": [
+            "{% extends '${1:base.html}' %}"
+        ],
+        "description": "Extends a Django template"
+    },
+    "Django Comment": {
+        "prefix": "djcomment",
+        "body": [
+            "{% comment %}",
+            "    ${1:Your comment here}",
+            "{% endcomment %}"
+        ],
+        "description": "Django comment block"
+    },
+    "Django Load Custom Tags": {
+        "prefix": "djloadcustom",
+        "body": [
+            "{% load ${1:custom_tag} %}"
+        ],
+        "description": "Load custom template tags"
+    }
+}
