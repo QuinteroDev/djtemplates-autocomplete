@@ -1,15 +1,18 @@
 {
+    "comment1": "=== BASIC TEMPLATE TAGS ===",
+    
     "Django Block": {
-        "prefix": "djblock",
+        "prefix": ["djblock", "block"],
         "body": [
             "{% block ${1:block_name} %}",
             "    ${2}",
-            "{% endblock %}"
+            "{% endblock ${1:block_name} %}"
         ],
-        "description": "Create a Django block"
+        "description": "Django template block with name reference"
     },
+    
     "Django If Statement": {
-        "prefix": "djif",
+        "prefix": ["djif", "if"],
         "body": [
             "{% if ${1:condition} %}",
             "    ${2}",
@@ -17,64 +20,550 @@
         ],
         "description": "Django if statement"
     },
-    "Django For Loop": {
-        "prefix": "djfor",
+    
+    "Django If Else": {
+        "prefix": ["djifelse", "ifelse"],
         "body": [
-            "{% for ${1:item} in ${2:list} %}",
+            "{% if ${1:condition} %}",
+            "    ${2}",
+            "{% else %}",
+            "    ${3}",
+            "{% endif %}"
+        ],
+        "description": "Django if-else statement"
+    },
+    
+    "Django If Elif Else": {
+        "prefix": ["djelif", "elif"],
+        "body": [
+            "{% if ${1:condition1} %}",
+            "    ${2}",
+            "{% elif ${3:condition2} %}",
+            "    ${4}",
+            "{% else %}",
+            "    ${5}",
+            "{% endif %}"
+        ],
+        "description": "Django if-elif-else statement"
+    },
+    
+    "Django For Loop": {
+        "prefix": ["djfor", "for"],
+        "body": [
+            "{% for ${1:item} in ${2:items} %}",
             "    ${3}",
             "{% endfor %}"
         ],
         "description": "Django for loop"
     },
-    "Django URL Tag": {
-        "prefix": "djurl",
+    
+    "Django For Empty": {
+        "prefix": ["djforempty", "forempty"],
         "body": [
-            "{% url '${1:view_name}' ${2:args} %}"
+            "{% for ${1:item} in ${2:items} %}",
+            "    ${3}",
+            "{% empty %}",
+            "    ${4:No items found}",
+            "{% endfor %}"
+        ],
+        "description": "Django for loop with empty clause"
+    },
+    
+    "Django With": {
+        "prefix": ["djwith", "with"],
+        "body": [
+            "{% with ${1:var}=${2:value} %}",
+            "    ${3}",
+            "{% endwith %}"
+        ],
+        "description": "Django with statement"
+    },
+    
+    "comment2": "=== URL & STATIC FILES ===",
+    
+    "Django URL Tag": {
+        "prefix": ["djurl", "url"],
+        "body": [
+            "{% url '${1:view_name}' ${2} %}"
         ],
         "description": "Django URL tag"
     },
+    
+    "Django URL with Args": {
+        "prefix": ["djurlargs", "urlargs"],
+        "body": [
+            "{% url '${1:view_name}' ${2:arg1}=${3:value1} %}"
+        ],
+        "description": "Django URL tag with arguments"
+    },
+    
+    "Django URL as Variable": {
+        "prefix": ["djurlas", "urlas"],
+        "body": [
+            "{% url '${1:view_name}' as ${2:url_var} %}"
+        ],
+        "description": "Django URL tag saved as variable"
+    },
+    
     "Django Static Tag": {
-        "prefix": "djstatic",
+        "prefix": ["djstatic", "static"],
         "body": [
-            "{% static '${1:path}' %}"
+            "{% static '${1:path/to/file}' %}"
         ],
-        "description": "Django Static tag"
+        "description": "Django static file tag"
     },
-    "Django Include": {
-        "prefix": "djinclude",
+    
+    "Django Media URL": {
+        "prefix": ["djmedia", "media"],
         "body": [
-            "{% include '${1:template_name}' %}"
+            "{{ ${1:object}.${2:field}.url }}"
         ],
-        "description": "Django Include tag"
+        "description": "Django media file URL"
     },
-    "Django Load Static": {
-        "prefix": "djloadstatic",
-        "body": [
-            "{% load static %}"
-        ],
-        "description": "Django load static files"
-    },
+    
+    "comment3": "=== TEMPLATE INHERITANCE ===",
+    
     "Django Extends": {
-        "prefix": "djextends",
+        "prefix": ["djextends", "extends"],
         "body": [
             "{% extends '${1:base.html}' %}"
         ],
         "description": "Extends a Django template"
     },
+    
+    "Django Include": {
+        "prefix": ["djinclude", "include"],
+        "body": [
+            "{% include '${1:template_name}.html' %}"
+        ],
+        "description": "Include another template"
+    },
+    
+    "Django Include with Context": {
+        "prefix": ["djincludewith", "includewith"],
+        "body": [
+            "{% include '${1:template_name}.html' with ${2:var}=${3:value} %}"
+        ],
+        "description": "Include template with additional context"
+    },
+    
+    "Django Include Only": {
+        "prefix": ["djincludeonly", "includeonly"],
+        "body": [
+            "{% include '${1:template_name}.html' with ${2:var}=${3:value} only %}"
+        ],
+        "description": "Include template with limited context"
+    },
+    
+    "comment4": "=== LOAD STATEMENTS ===",
+    
+    "Django Load Static": {
+        "prefix": ["djloadstatic", "loadstatic"],
+        "body": [
+            "{% load static %}"
+        ],
+        "description": "Load static template tag library"
+    },
+    
+    "Django Load i18n": {
+        "prefix": ["djloadi18n", "loadi18n"],
+        "body": [
+            "{% load i18n %}"
+        ],
+        "description": "Load internationalization tags"
+    },
+    
+    "Django Load Custom Tags": {
+        "prefix": ["djloadcustom", "loadcustom"],
+        "body": [
+            "{% load ${1:custom_tags} %}"
+        ],
+        "description": "Load custom template tags"
+    },
+    
+    "Django Load Multiple": {
+        "prefix": ["djloadmulti", "loadmulti"],
+        "body": [
+            "{% load static i18n ${1:custom_tags} %}"
+        ],
+        "description": "Load multiple tag libraries"
+    },
+    
+    "comment5": "=== FILTERS ===",
+    
+    "Django Filter Default": {
+        "prefix": ["djdefault", "default"],
+        "body": [
+            "{{ ${1:variable}|default:'${2:default_value}' }}"
+        ],
+        "description": "Django default filter"
+    },
+    
+    "Django Filter Date": {
+        "prefix": ["djdate", "date"],
+        "body": [
+            "{{ ${1:date_variable}|date:'${2:Y-m-d}' }}"
+        ],
+        "description": "Django date filter"
+    },
+    
+    "Django Filter Length": {
+        "prefix": ["djlength", "length"],
+        "body": [
+            "{{ ${1:list_variable}|length }}"
+        ],
+        "description": "Django length filter"
+    },
+    
+    "Django Filter Truncate": {
+        "prefix": ["djtruncate", "truncate"],
+        "body": [
+            "{{ ${1:text_variable}|truncatewords:${2:30} }}"
+        ],
+        "description": "Django truncate filter"
+    },
+    
+    "Django Filter Safe": {
+        "prefix": ["djsafe", "safe"],
+        "body": [
+            "{{ ${1:html_variable}|safe }}"
+        ],
+        "description": "Django safe filter for HTML"
+    },
+    
+    "Django Filter Slugify": {
+        "prefix": ["djslugify", "slugify"],
+        "body": [
+            "{{ ${1:text_variable}|slugify }}"
+        ],
+        "description": "Django slugify filter"
+    },
+    
+    "comment6": "=== FORMS ===",
+    
+    "Django CSRF Token": {
+        "prefix": ["djcsrf", "csrf"],
+        "body": [
+            "{% csrf_token %}"
+        ],
+        "description": "Django CSRF token"
+    },
+    
+    "Django Form": {
+        "prefix": ["djform", "form"],
+        "body": [
+            "<form method=\"${1|POST,GET|}\" action=\"${2:{% url 'view_name' %}}\">",
+            "    {% csrf_token %}",
+            "    {{ form.as_${3|p,table,ul|} }}",
+            "    <button type=\"submit\">${4:Submit}</button>",
+            "</form>"
+        ],
+        "description": "Complete Django form"
+    },
+    
+    "Django Form Field": {
+        "prefix": ["djfield", "field"],
+        "body": [
+            "{{ form.${1:field_name} }}"
+        ],
+        "description": "Django form field"
+    },
+    
+    "Django Form Field with Label": {
+        "prefix": ["djfieldlabel", "fieldlabel"],
+        "body": [
+            "{{ form.${1:field_name}.label_tag }}",
+            "{{ form.${1:field_name} }}",
+            "{{ form.${1:field_name}.errors }}"
+        ],
+        "description": "Django form field with label and errors"
+    },
+    
+    "Django Form Errors": {
+        "prefix": ["djformerrors", "formerrors"],
+        "body": [
+            "{% if form.errors %}",
+            "    <div class=\"alert alert-danger\">",
+            "        {{ form.errors }}",
+            "    </div>",
+            "{% endif %}"
+        ],
+        "description": "Django form errors display"
+    },
+    
+    "comment7": "=== INTERNATIONALIZATION ===",
+    
+    "Django Trans": {
+        "prefix": ["djtrans", "trans"],
+        "body": [
+            "{% trans '${1:text}' %}"
+        ],
+        "description": "Django translation tag"
+    },
+    
+    "Django Blocktrans": {
+        "prefix": ["djblocktrans", "blocktrans"],
+        "body": [
+            "{% blocktrans %}",
+            "    ${1:Text to translate}",
+            "{% endblocktrans %}"
+        ],
+        "description": "Django block translation"
+    },
+    
+    "Django Language Code": {
+        "prefix": ["djlang", "lang"],
+        "body": [
+            "{% get_current_language as LANGUAGE_CODE %}"
+        ],
+        "description": "Get current language code"
+    },
+    
+    "comment8": "=== COMMENTS & DEBUG ===",
+    
     "Django Comment": {
-        "prefix": "djcomment",
+        "prefix": ["djcomment", "comment"],
+        "body": [
+            "{# ${1:comment} #}"
+        ],
+        "description": "Django single line comment"
+    },
+    
+    "Django Block Comment": {
+        "prefix": ["djblockcomment", "blockcomment"],
         "body": [
             "{% comment %}",
             "    ${1:Your comment here}",
             "{% endcomment %}"
         ],
-        "description": "Django comment block"
+        "description": "Django multiline comment block"
     },
-    "Django Load Custom Tags": {
-        "prefix": "djloadcustom",
+    
+    "Django Debug": {
+        "prefix": ["djdebug", "debug"],
         "body": [
-            "{% load ${1:custom_tag} %}"
+            "{% if debug %}",
+            "    <pre>{{ ${1:variable} }}</pre>",
+            "{% endif %}"
         ],
-        "description": "Load custom template tags"
+        "description": "Django debug output"
+    },
+    
+    "comment9": "=== ADVANCED PATTERNS ===",
+    
+    "Django Base Template": {
+        "prefix": ["djbase", "base"],
+        "body": [
+            "{% load static %}",
+            "<!DOCTYPE html>",
+            "<html lang=\"${1:en}\">",
+            "<head>",
+            "    <meta charset=\"UTF-8\">",
+            "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+            "    <title>{% block title %}${2:My Site}{% endblock %}</title>",
+            "    <link rel=\"stylesheet\" href=\"{% static 'css/style.css' %}\">",
+            "    {% block extra_css %}{% endblock %}",
+            "</head>",
+            "<body>",
+            "    {% block header %}",
+            "        <header>",
+            "            <!-- Navigation -->",
+            "        </header>",
+            "    {% endblock %}",
+            "    ",
+            "    <main>",
+            "        {% block content %}",
+            "        {% endblock %}",
+            "    </main>",
+            "    ",
+            "    {% block footer %}",
+            "        <footer>",
+            "            <!-- Footer content -->",
+            "        </footer>",
+            "    {% endblock %}",
+            "    ",
+            "    <script src=\"{% static 'js/script.js' %}\"></script>",
+            "    {% block extra_js %}{% endblock %}",
+            "</body>",
+            "</html>"
+        ],
+        "description": "Complete Django base template"
+    },
+    
+    "Django Child Template": {
+        "prefix": ["djchild", "child"],
+        "body": [
+            "{% extends '${1:base.html}' %}",
+            "{% load static %}",
+            "",
+            "{% block title %}${2:Page Title} - {{ block.super }}{% endblock %}",
+            "",
+            "{% block content %}",
+            "    <h1>${2:Page Title}</h1>",
+            "    ${3}",
+            "{% endblock %}"
+        ],
+        "description": "Django child template structure"
+    },
+    
+    "Django Pagination": {
+        "prefix": ["djpagination", "pagination"],
+        "body": [
+            "{% if is_paginated %}",
+            "    <nav aria-label=\"Page navigation\">",
+            "        <ul class=\"pagination\">",
+            "            {% if page_obj.has_previous %}",
+            "                <li class=\"page-item\">",
+            "                    <a class=\"page-link\" href=\"?page=1\">First</a>",
+            "                </li>",
+            "                <li class=\"page-item\">",
+            "                    <a class=\"page-link\" href=\"?page={{ page_obj.previous_page_number }}\">Previous</a>",
+            "                </li>",
+            "            {% endif %}",
+            "            ",
+            "            <li class=\"page-item active\">",
+            "                <span class=\"page-link\">",
+            "                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}",
+            "                </span>",
+            "            </li>",
+            "            ",
+            "            {% if page_obj.has_next %}",
+            "                <li class=\"page-item\">",
+            "                    <a class=\"page-link\" href=\"?page={{ page_obj.next_page_number }}\">Next</a>",
+            "                </li>",
+            "                <li class=\"page-item\">",
+            "                    <a class=\"page-link\" href=\"?page={{ page_obj.paginator.num_pages }}\">Last</a>",
+            "                </li>",
+            "            {% endif %}",
+            "        </ul>",
+            "    </nav>",
+            "{% endif %}"
+        ],
+        "description": "Django pagination with Bootstrap"
+    },
+    
+    "Django Messages": {
+        "prefix": ["djmessages", "messages"],
+        "body": [
+            "{% if messages %}",
+            "    {% for message in messages %}",
+            "        <div class=\"alert alert-{{ message.tags }} alert-dismissible fade show\" role=\"alert\">",
+            "            {{ message }}",
+            "            <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">",
+            "                <span aria-hidden=\"true\">&times;</span>",
+            "            </button>",
+            "        </div>",
+            "    {% endfor %}",
+            "{% endif %}"
+        ],
+        "description": "Django messages display"
+    },
+    
+    "Django Login Required": {
+        "prefix": ["djlogincheck", "logincheck"],
+        "body": [
+            "{% if user.is_authenticated %}",
+            "    ${1:<!-- Content for authenticated users -->}",
+            "{% else %}",
+            "    <p>Please <a href=\"{% url 'login' %}\">login</a> to continue.</p>",
+            "{% endif %}"
+        ],
+        "description": "Check if user is logged in"
+    },
+    
+    "Django User Info": {
+        "prefix": ["djuserinfo", "userinfo"],
+        "body": [
+            "{% if user.is_authenticated %}",
+            "    <p>Welcome, {{ user.get_full_name|default:user.username }}!</p>",
+            "{% endif %}"
+        ],
+        "description": "Display user information"
+    },
+    
+    "Django Cycle": {
+        "prefix": ["djcycle", "cycle"],
+        "body": [
+            "{% cycle 'odd' 'even' as ${1:row_class} %}"
+        ],
+        "description": "Django cycle tag for alternating values"
+    },
+    
+    "Django Now": {
+        "prefix": ["djnow", "now"],
+        "body": [
+            "{% now \"${1:Y-m-d H:i}\" %}"
+        ],
+        "description": "Django current date/time"
+    },
+    
+    "Django Autoescape": {
+        "prefix": ["djautoescape", "autoescape"],
+        "body": [
+            "{% autoescape ${1|on,off|} %}",
+            "    ${2}",
+            "{% endautoescape %}"
+        ],
+        "description": "Django autoescape block"
+    },
+    
+    "Django Verbatim": {
+        "prefix": ["djverbatim", "verbatim"],
+        "body": [
+            "{% verbatim %}",
+            "    ${1:{{ angular_variable }}}",
+            "{% endverbatim %}"
+        ],
+        "description": "Django verbatim tag for JS frameworks"
+    },
+    
+    "Django Regroup": {
+        "prefix": ["djregroup", "regroup"],
+        "body": [
+            "{% regroup ${1:object_list} by ${2:attribute} as ${3:grouped} %}",
+            "{% for group in ${3:grouped} %}",
+            "    <h3>{{ group.grouper }}</h3>",
+            "    <ul>",
+            "        {% for item in group.list %}",
+            "            <li>{{ item }}</li>",
+            "        {% endfor %}",
+            "    </ul>",
+            "{% endfor %}"
+        ],
+        "description": "Django regroup tag"
+    },
+    
+    "Django Firstof": {
+        "prefix": ["djfirstof", "firstof"],
+        "body": [
+            "{% firstof ${1:var1} ${2:var2} ${3:var3} '${4:fallback}' %}"
+        ],
+        "description": "Django firstof tag"
+    },
+    
+    "Django Lorem": {
+        "prefix": ["djlorem", "lorem"],
+        "body": [
+            "{% lorem ${1:3} ${2|p,w,b|} %}"
+        ],
+        "description": "Django lorem ipsum generator"
+    },
+    
+    "Django Widget Tweaks": {
+        "prefix": ["djwidget", "widget"],
+        "body": [
+            "{% load widget_tweaks %}",
+            "{{ form.${1:field_name}|add_class:'${2:form-control}' }}"
+        ],
+        "description": "Django widget tweaks (requires django-widget-tweaks)"
+    },
+    
+    "Django Crispy Form": {
+        "prefix": ["djcrispy", "crispy"],
+        "body": [
+            "{% load crispy_forms_tags %}",
+            "{% crispy form %}"
+        ],
+        "description": "Django crispy forms (requires django-crispy-forms)"
     }
 }

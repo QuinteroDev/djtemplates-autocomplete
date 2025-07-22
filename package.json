@@ -1,18 +1,47 @@
 {
-  "name": "djtemplates-autocomplete",
-  "displayName": "DJTemplates-Autocomplete",
-  "description": "Autocompletes Django template tags and filters in VScode",
+  "name": "django-template-pro",
+  "displayName": "Django Template Pro",
+  "description": "🚀 Supercharge your Django development with 50+ intelligent snippets for templates, forms, filters, and more",
   "publisher": "quinterodev",
-  "version": "0.0.2",
-  "icon": "logo.png",
+  "version": "1.0.0",
+  "icon": "logo.svg",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/QuinteroDev/django-template-pro"
+  },
+  "bugs": {
+    "url": "https://github.com/QuinteroDev/django-template-pro/issues"
+  },
+  "homepage": "https://github.com/QuinteroDev/django-template-pro#readme",
+  "license": "MIT",
+  "keywords": [
+    "django",
+    "django-templates",
+    "django-snippets",
+    "python",
+    "django-html",
+    "snippets",
+    "autocomplete",
+    "templates",
+    "django-forms",
+    "django-filters",
+    "web-development",
+    "productivity",
+    "django-tags",
+    "bootstrap",
+    "htmx"
+  ],
   "engines": {
     "vscode": "^1.92.0"
   },
   "categories": [
+    "Snippets",
+    "Programming Languages",
     "Other"
   ],
   "activationEvents": [
-    "onLanguage:django-html"
+    "onLanguage:django-html",
+    "onLanguage:html"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -48,12 +77,6 @@
       {
         "language": "html",
         "path": "./snippets/django-html.json"
-      }
-    ],
-    "commands": [
-      {
-        "command": "djtemplates-autocomplete.helloWorld",
-        "title": "Hello World"
       }
     ]
   },
